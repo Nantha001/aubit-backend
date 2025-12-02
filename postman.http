@@ -1,0 +1,24 @@
+
+POST http://localhost:3000/signup
+Content-Type: application/json
+
+{
+  "name": "nantha",
+  "regNo": 8100201050,
+  "email": "pulsernanth134@gmail.com",
+  "dateOfBirth": "2002-04-05",
+  "gender": "male",
+  "section": "E1",
+  "password": "123456",
+  "confirmPassword":"123456"
+}
+###
+GET http://localhost:3000/userdata
+Content-Type: application/json
+
+
+###
+POST http://localhost:3000/login 
+Content-Type: application/json
+
+{"regNo":"8100201050","password":"123456"}
