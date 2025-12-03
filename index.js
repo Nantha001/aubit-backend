@@ -37,6 +37,12 @@ function auth(req, res, next) {
   next();
 }
 
+setInterval(() => {
+  db.query("SELECT 1", (err) => {
+    if (err) console.log("KeepAlive error:", err.code);
+  });
+}, 300000);
+
 //test
 app.get("/test", (req, res) => {
   res.json({ message: "success" });
