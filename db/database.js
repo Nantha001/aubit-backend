@@ -14,6 +14,7 @@ function connectDB() {
 
   db.connect((err) => {
     if (err) {
+      console.log("Database Error ❌")
       connectDB();
     } else {
       console.log("Database Connected");
