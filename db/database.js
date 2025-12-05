@@ -12,7 +12,7 @@ let db;
 
   db.connect((err) => {
     if (err) {
-      setTimeout(connectDB, 2000);
+      
       console.log("db Error",err)
     }else{
       console.log("db connected")
