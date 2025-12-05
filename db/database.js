@@ -14,23 +14,13 @@ function connectDB() {
 
   db.connect((err) => {
     if (err) {
-      setTimeout(connectDB, 2000);
+      setTimeout(connectDB(), 2000);
     } else {
       console.log("Database Connected");
     }
   });
 
-  db.on("error", (err) => {
-    if (
-      err.code === "PROTOCOL_CONNECTION_LOST" ||
-      err.code === "ECONNRESET" ||
-      err.code === "PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR"
-    ) {
-      connectDB();
-    } else {
-      throw err;
-    }
-  });
+
 }
 
 connectDB();
