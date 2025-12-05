@@ -8,8 +8,6 @@ function connectDB() {
     user: process.env.USER,
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
-    port: 3306,
-    connectTimeout: 10000
   });
 
   db.connect((err) => {
