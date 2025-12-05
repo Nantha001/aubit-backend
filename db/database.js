@@ -1,4 +1,3 @@
-
 const mysql = require("mysql2");
 
 let db;
@@ -9,11 +8,15 @@ function connectDB() {
     user: process.env.USER,
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
+
+  
   });
 
   db.connect((err) => {
     if (err) {
       setTimeout(connectDB, 2000);
+    } else {
+      console.log("Database Connected");
     }
   });
 
@@ -33,4 +36,3 @@ function connectDB() {
 connectDB();
 
 module.exports = db;
-
