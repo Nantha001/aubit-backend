@@ -13,9 +13,18 @@ function connectDB() {
   db.connect((err) => {
     if (err) {
       console.error("❌ Database Connection Failed:", err.code);
-      setTimeout(connectDB, 2000);
+      setTimeout(connectDB, 5000);
     } else {
       console.log("✔ Database Connected Successfully");
+
+ 
+      db.query("SELECT NOW() AS server_time", (err, result) => {
+        if (err) {
+          console.error("❌ Test Query Failed:", err.code);
+        } else {
+          console.log("⏱ MySQL Active - Current Time:", result[0].server_time);
+        }
+      });
     }
   });
 
