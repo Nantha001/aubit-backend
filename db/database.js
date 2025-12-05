@@ -7,12 +7,25 @@ const db = mysql.createConnection({
   database: process.env.DATABASE,
 });
 
-db.connect((err) => {
-  if (err) {
-    console.error("❌ Database Connection Failed:", err);
-  } else {
-    console.log("✔ Database Connected Successfully");
-  }
-});
+function handleDisconnect(connection) {
+  connection.connect((err) => {
+    if (err) {
+      console.error("❌ Database Connection Failed:", err);
+      setTimeout(() => handleDisconnect(connection), 2000);
+    } else {
+      console.log("✔ Database Connected Successfully");
+    }
+  });
+
+  connection.on("error", (err) => {
+    if (err.code === "PROTOCOL_CONNECTION_LOST") {
+      handleDisconnect(connection);
+    } else {
+      throw err;
+    }
+  });
+}
+
+handleDisconnect(db);
 
 module.exports = db;
