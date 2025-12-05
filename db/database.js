@@ -1,31 +1,34 @@
 const mysql = require("mysql2");
 
-const db = mysql.createConnection({
-  host: process.env.HOST,
-  user: process.env.USER,
-  password: process.env.PASSWORD,
-  database: process.env.DATABASE,
-});
+let db;
 
-function handleDisconnect(connection) {
-  connection.connect((err) => {
+function connectDB() {
+  db = mysql.createConnection({
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE,
+  });
+
+  db.connect((err) => {
     if (err) {
-      console.error("❌ Database Connection Failed:", err);
-      setTimeout(() => handleDisconnect(connection), 2000);
-    } else {
-      console.log("✔ Database Connected Successfully");
+      setTimeout(connectDB, 2000);
     }
   });
 
-  connection.on("error", (err) => {
-    if (err.code === "PROTOCOL_CONNECTION_LOST") {
-      handleDisconnect(connection);
+  db.on("error", (err) => {
+    if (
+      err.code === "PROTOCOL_CONNECTION_LOST" ||
+      err.code === "ECONNRESET" ||
+      err.code === "PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR"
+    ) {
+      connectDB();
     } else {
       throw err;
     }
   });
 }
 
-handleDisconnect(db);
+connectDB();
 
 module.exports = db;
