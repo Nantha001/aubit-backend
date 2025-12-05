@@ -8,20 +8,28 @@ function connectDB() {
     user: process.env.USER,
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
-
-  
+    port: 3306,
+    connectTimeout: 10000
   });
 
   db.connect((err) => {
     if (err) {
-      console.log("Database Error ❌",err)
-   
+      console.error("❌ Database Connection Failed:", err.code);
+      setTimeout(connectDB, 2000);
     } else {
-      console.log("Database Connected");
+      console.log("✔ Database Connected Successfully");
     }
   });
 
+  db.on("error", (err) => {
+    console.error("🔥 MySQL Error:", err.code);
 
+    if (err.code === "PROTOCOL_CONNECTION_LOST" || err.fatal) {
+      connectDB();
+    } else {
+      throw err;
+    }
+  });
 }
 
 connectDB();
