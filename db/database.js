@@ -14,7 +14,7 @@ function connectDB() {
 
   db.connect((err) => {
     if (err) {
-      setTimeout(connectDB(), 2000);
+      connectDB();
     } else {
       console.log("Database Connected");
     }
