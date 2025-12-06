@@ -5,14 +5,16 @@ const db = mysql.createConnection({
   user: process.env.USER,
   password: process.env.PASSWORD,
   database: process.env.DATABASE,
-  port: process.env.DB_PORT,
+  port: process.env.DB_PORT, 
+  family: 4                   
 });
 
-db.connect((e) => {
-  if (e) {
-    console.log("Error Db", e);
+db.connect((err) => {
+  if (err) {
+    console.log("Database Connection Failed ❌", err);
+    setTimeout(() => db.connect(), 2000); // retry
   } else {
-    console.log("DB successfully connec");
+    console.log("Database Connected ✔");
   }
 });
 
