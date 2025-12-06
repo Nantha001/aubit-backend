@@ -1,5 +1,13 @@
-const mysql = require("mysql2");
+// Prefer IPv4 when DNS returns both IPv4 and IPv6 addresses.
+// This helps avoid ENETUNREACH/IPv6 failures on hosts without IPv6 routing.
+const dns = require("dns");
+if (dns && typeof dns.setDefaultResultOrder === "function") {
+  try {
+    dns.setDefaultResultOrder("ipv4first");
+  } catch (e) {}
+}
 
+const mysql = require("mysql2");
 const config = {
   host: process.env.HOST,
   user: process.env.USER,
