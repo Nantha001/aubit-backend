@@ -48,7 +48,7 @@ app.get("/test", (req, res) => {
 app.post("/signup", signup);
 app.post("/login", login);
 //get
-app.get("/userdata", auth, userData);
+app.get("/userdata",  userData);
 //upload
 app.post("/upload", auth, upload.single("image"), (req, res) => {
   try {
