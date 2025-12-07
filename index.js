@@ -48,7 +48,7 @@ app.get("/test", (req, res) => {
     res.json({ message: "err" });
     return;
   }else{
-    res.json({message:row})
+    res.json({message:"success"})
     return;
   }
   })
