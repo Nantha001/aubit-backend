@@ -32,4 +32,4 @@ function connectDB() {
 
 connectDB();
 
-module.exports = () => db;
+module.exports = db;
