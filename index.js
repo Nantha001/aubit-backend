@@ -41,7 +41,17 @@ function auth(req, res, next) {
 
 //test
 app.get("/test", (req, res) => {
-  res.json({ message: "success" });
+  db.query(`select name from students where reg_number=?`,["810020105048"],(err,row)=>{
+
+  if(err){
+
+    res.json({ message: "err" });
+    return;
+  }else{
+    res.json({message:row})
+    return;
+  }
+  })
 });
 
 // signup
