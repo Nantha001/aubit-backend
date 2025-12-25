@@ -1,7 +1,7 @@
 const db = require("../db/database");
 
 function userData(req, res) {
-  const userQuery = `select * from students`;
+  const userQuery = `select name,reg_number,dob,gender from students`;
   db.query(userQuery, [], (err, row) => {
     if (err) {
       return res.status(500).json({ message: "❌ Database failure" });
